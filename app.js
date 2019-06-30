@@ -1,14 +1,21 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const mongoose = require('mongoose');
+const cors = require('cors')
 const keys = require('./keys');
-require('./routes/ksenia')(app);
+require('./models/User');
+require('./routes/subscribe')(app);
 require('./routes/weather')(app);
 
-require('./models/User')
 
 
+
+app.use(cors())
+
+app.get('/subscribe/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
 
 app.get('/', (req, res) => res.send('Hello !'))
 
